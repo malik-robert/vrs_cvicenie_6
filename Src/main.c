@@ -49,7 +49,15 @@ int main(void)
   while (1)
   {
 	  /* USER CODE BEGIN */
+	  if ((LL_GPIO_ReadInputPort(GPIOB) & (1 << 3)) >> 3) {
+		  sendString("Svetlo");
+	  }
+	  else {
+		  sendString("Tma");
+	  }
 
+	  LL_mDelay(1000);
+	  /* USER CODE END */
 	  /* USER CODE END */
   }
 }
@@ -90,6 +98,15 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN */
+void sendString(char *str) {
+	uint8_t n = 0;
+
+	while (str[n] != '\0') {
+		LL_USART_TransmitData8(USART2, str[n++]);
+		while (!(USART2->ISR & (1 << 7)));
+	}
+}
+
 void process_serial_data(uint8_t ch)
 {
 	static uint8_t n = 0;
