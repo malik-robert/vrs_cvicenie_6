@@ -29,7 +29,7 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN */
 void process_serial_data(uint8_t ch);
-void sendString(char *msg);
+void sendString(char *str);
 /* USER CODE END */
 
 int main(void)
